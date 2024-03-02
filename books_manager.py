@@ -1,3 +1,6 @@
+
+import datetime
+
 class Book:
     
     def __init__(self, title, author, year) -> None:
@@ -27,14 +30,16 @@ class BookManager:
             
     def search_book(self, title):
         
+        
         for book in self.books:
             if book.title.lower() == title.lower():
+                
                 print(f"\n Title: {book.title}, Author: {book.author}, Year: {book.year} \n")
                
                 return
             
-            print("\n Not Such a book in Library \n ")        
-  
+            print("No Such Book Found ")
+               
   
 book_manager = BookManager()
 
@@ -51,24 +56,41 @@ while True:
         
     except:
         
-        print("Wrond Input , Try Again")
+        print("Wrong Input , Try Again")
         continue
         
     if choise == 1: 
         
-        title = input("Enter title: ")
-        author = input("Enter the author: ")
-        year = input("Enter the year : ")
         
         
-        try:
+        title = input("Enter title: ").strip()
+        author = input("Enter the author: ").strip()
+        
+        while True:
+            year = input("Enter the year : ").strip()
             
-            int(year)
         
-        except:
+            try:
+                
+                int(year)
             
-            print("\n Year must be number \n ")
-            continue
+            except:
+                
+                print("\n Year must be number \n ")
+                continue
+            
+            if  int(year) > datetime.date.today().year:
+                
+    
+                
+                print("Year Could not be more than current year ")
+                               
+                continue
+            
+            else:
+                
+                break
+                 
         
         book_manager.add_book(title, author, year)
     
@@ -82,7 +104,7 @@ while True:
         
     elif choise == 3 :
         
-        title = input(" \n Enter The Title to Search : \n ")
+        title = input(" \n Enter The Title to Search : \n ").strip()
         
         book_manager.search_book(title)        
         
@@ -91,7 +113,7 @@ while True:
         break
     
     else : 
-        print("Wrond Input") 
+        print("Wrong Input") 
         continue
 
 
